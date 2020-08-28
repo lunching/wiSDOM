@@ -27,4 +27,5 @@ NOT RUN: For reviewing process only, ui.R and Server.R will be uploaded upon pub
 ## How to Cite
 
 If you find wiSDOM usefull in your research please city our paper
+
 (Will add citation upon publication)
