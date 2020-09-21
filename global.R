@@ -75,6 +75,10 @@ if (!require('ROCR')){
   install.packages("ROCR")
 }
 
+if (!require('ggplot2')){
+  install.packages("ggplot2")
+}
+
 ## Random Forest ##
 
 if (!require('rsample')){
