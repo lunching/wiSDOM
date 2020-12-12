@@ -20,6 +20,8 @@ NOT RUN: For reviewing process only, ui.R and Server.R will be uploaded upon pub
 
 (Will upload and provide the link of supplementary materials upon publication)
 
+For trouble shooting, please leave your comments under the issues page.
+
 ## Run wiSDOM using shinyapps.io with free RStudio service
 
 (shinyapps.io link will be provided upon publication)
