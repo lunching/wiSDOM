@@ -6,7 +6,6 @@ LDA_ES <- function(OTU_input, group_index, cut_p, cut_LDA_log_score, prop_val = 
   summary_text1 <- paste(nrow(OTU_input), " biomarker(s) were analyzed.", sep ="")
   p_KW_tmp <- c()
   for(i in 1: nrow(OTU_input)){
-    
     OTU_tmp <- OTU_input[i, ]
       test_tmp <- kruskal.test(as.numeric(OTU_tmp), as.factor(group_index))
       p_KW_tmp[i] <- signif(test_tmp$p.value, 4)
@@ -18,6 +17,8 @@ LDA_ES <- function(OTU_input, group_index, cut_p, cut_LDA_log_score, prop_val = 
     summary_text3 <- c("")
     candidate_markers <- c("")
     summary_table <- c("")
+    roc.perf<- c("")
+    auc.train <- c("")
   }
   else{
     summary_text2 <- paste("There are ", length(index_LDA), " biomarker(s) remain from p values of KW-test less than ", cut_p, ".", sep = "")
@@ -36,6 +37,8 @@ LDA_ES <- function(OTU_input, group_index, cut_p, cut_LDA_log_score, prop_val = 
       summary_text3 <- paste("There are ", length(index_LDA2), " biomarker(s) passed log LDA score greater than ", cut_LDA_log_score, ", please re-run by selecting more conservative p value or log LDA score threshold!", sep = "")
       candidate_markers <- c("")
       summary_table <- c("")
+      roc.perf<- c("")
+      auc.train <- c("")
     }
     else{
       summary_text3 <- paste("There are ", length(index_LDA2), " biomarker(s) passed log LDA score greater than ", cut_LDA_log_score, ". ROC for multiple biomarker(s) prediction can be generated here, you can also access interactive ROC and AUC for single markers in next module!", sep = "")
