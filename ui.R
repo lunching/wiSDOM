@@ -5,40 +5,76 @@ library(shinyFiles)
 shinythemes::themeSelector()
 navbarPage(
   theme = shinytheme("cerulean"),
-  "wiSDOM",
+  "",
+  tabPanel(strong("wiSDOM"), 
+           h1("Welcome to wiSDOM",align = "center",style="primary"),
+           tags$hr(),
+           mainPanel(
+             p(strong("wiSDOM"), "(web-based inclusionary analysis Suite for Disease-Oriented Metagenomics) is a browser-based R Shiny graphical user interface (GUI) 
+               for scientists without programming expertise to conduct analysis and visualization of metagenomic data which comprises six functional modules: (1) Initial
+               visualization of sampling effort and distribution of dominant bacterial taxa among groups 
+               or individual samples at different taxonomic levels; (2) Statis-tical and visual analysis of α diversity; (3) Analysis of similarity (ANOSIM) 
+               of β diversity on Bray-Curtis or UniFrac distance and visualizations; (4) Microbial biomarker discovery between two or more groups with various 
+               statistical and machine learning approaches; (5) Assessment of the clini-cal validity of selected biomarkers by creating the receiver operating 
+               characteristic (ROC) curves and calculating the area under the curve (AUC) for binary classifiers; and lastly (6) Functional pre-diction of 
+               metagenomes with PICRUSt or Tax4Fun."),
+             tags$hr(),
+             img(src='wiSDOM interface.png',align="center",height = '450px', width = '800px'),
+             tags$hr(),
+             p("wiSDOM is available for running locally at ",a(strong("github"), href="https://github.com/lunching/wiSDOM",target="_blank"), "repository, and"
+               ,a(strong("browser-based"), href="https://lun-ching.shinyapps.io/wisdom/",target="_blank"), "R Shiny interface. For detailed inplementation of each module, please refer to our"
+               ,a(strong("tutorials"), href="https://github.com/lunching/wiSDOM/blob/master/wiSDOM%20Tutorial.pdf",target="_blank"), "with"
+               , a(strong("toy examples"), href="https://github.com/lunching/wiSDOM/tree/master/Test%20Data",target="_blank"),"."),
+             p("wiSDOM is developed and maintained by ", a("Dr. Lun-Ching Chang ",href="http://www.math.fau.edu/people/faculty/chang.php",target="_blank")
+               ,"from the Department of Mathematical Sciences, Florida Atlantic University."),
+             p("For question and bug report, please email", a("Dr. Lun-Ching Chang ",href="http://www.math.fau.edu/people/faculty/chang.php",target="_blank"), "(changl@fau.edu) or leave your comment and reporting issue at"
+               , a("github page ",href="https://github.com/lunching/wiSDOM/issues",target="_blank"), "."),
+             tags$hr(),
+             h3(strong("How to start the software")),
+             p("First, we recommend users to use R >= 4.0.2 and Shiny >= 1.2.0 to execute wiSDOM locally. If you are using earlier R version, you may encounter errors in installing packages, then please update your R version frist"),
+             p("For Windows or MACs, users need to run the following command in R to install the", em("shiny") , "package"),
+             p(code("install.packages('shiny')")), 
+             p(code("library(shiny)")),
+             p(code("shiny::runGitHub('wiSDOM','lunching')")),
+             tags$hr(),
+             h3(strong("How to cite")),
+             p("If you find wiSDOM useful in your research please city our paper"),
+             p("Will add citation upon publication")
+           ),
+  ),
   ################
   ##  Module 1  ##
   ################
   navbarMenu("Data",
              "1. Inputs",
-             tabPanel("OTUs (Count)",
-                      sidebarPanel(
-                        tags$div(tags$label(h3("Load OTU Count"))),
-                        tags$div(tags$label(h3("1. Choose OTU file (Count)"))),
-                        fileInput("input_OTU", label = ""),
+             #tabPanel("OTUs (Count)",
+             #        sidebarPanel(
+             #           tags$div(tags$label(h3("Load OTU Count"))),
+             #            tags$div(tags$label(h3("1. Choose OTU file (Count)"))),
+             #           fileInput("input_OTU", label = ""),
                         #radioButtons("OTU_type", label = h4("OTU Type"),
                         #             choices = list("Count" = 1, "RA" = 2), 
                         #             selected = 1),
-                        tags$div(tags$label(h3("2. Choose an index file"))),
-                        fileInput("input_Index", label = ""),
-                        actionButton("action_OTU", "Load")
-                      ),
-                      mainPanel(theme = "bootstrap.css",
-                                includeScript("./www/text.js"),
-                                tags$div(tags$label(h3("Logs"))),
-                                verbatimTextOutput("text_OTU_dir"),
-                                verbatimTextOutput("text_OTU_Individual")
-                                #tableOutput("contents")
-                      ),
-                      ),
-             tabPanel("RA (Whole or individual level)",
+             #           tags$div(tags$label(h3("2. Choose an index file"))),
+             #           fileInput("input_Index", label = ""),
+             #            actionButton("action_OTU", "Load")
+             #          ),
+             #          mainPanel(theme = "bootstrap.css",
+             #                    includeScript("./www/text.js"),
+             #                    tags$div(tags$label(h3("Logs"))),
+             #                    verbatimTextOutput("text_OTU_dir"),
+             #                    verbatimTextOutput("text_OTU_Individual")
+             #                    #tableOutput("contents")
+             #         ),
+             #          ),
+             tabPanel("Upload the Data",
                       sidebarPanel(
-                        tags$div(tags$label(h3("Load RA"))),
-                        tags$div(tags$label(h3("1. Choose RA file"))),
+                        #tags$div(tags$label(h3("Load RA"))),
+                        tags$div(tags$label(h3("1. Choose a file"))),
                         fileInput("input_RA_level", label = ""),
                         tags$div(tags$label(h3("2. Choose level"))),
                         selectInput("select_RA_type", label = h4("Select level"), 
-                                    choices = list("Whole" = 1,"Phylum" = 2, "Class" = 3, "Order" = 4, "Family" = 5,  "Genus" = 6, "Species" = 7), 
+                                    choices = list("Whole (count)" = 1, "Whole (RA)" = 2,"Phylum" = 3, "Class" = 4, "Order" = 5, "Family" = 6,  "Genus" = 7, "Species" = 8), 
                                     selected = 1),
                         tags$div(tags$label(h3("3. Choose an index file"))),
                         fileInput("input_RA_level_Index", label = ""),
@@ -57,8 +93,8 @@ navbarPage(
              tabPanel("Distribution of Top Bacterial Taxa (groups)",
                       sidebarPanel(
                         tags$div(tags$label(h3("Distribution of top bacterial taxa (groups)"))),
-                        tags$div(tags$label(h3("1. Choose RA file"))),
-                        selectInput("input_RA_bar_plot_group", h4("RA Data"),
+                        tags$div(tags$label(h3("1. Choose an Input"))),
+                        selectInput("input_RA_bar_plot_group", label = h4("RA Data"),
                                     choices = "No data selected! please load the RA data first"),
                         numericInput("top_n_bar_plot_group", label = h4("Number of top bacterial taxa (Max = 21)"), value = 10),
                         actionButton("action_m1_bar_plot_group", "Plot"),
@@ -73,8 +109,8 @@ navbarPage(
              tabPanel("Distribution of Top Bacterial Taxa (samples)",
                       sidebarPanel(
                         tags$div(tags$label(h3("Distribution of top bacterial taxa (samples)"))),
-                        tags$div(tags$label(h3("1. Choose RA file"))),
-                        selectInput("input_RA_bar_plot_individual", h4("RA Data"),
+                        tags$div(tags$label(h3("1. Choose an Input"))),
+                        selectInput("input_RA_bar_plot_individual", label = h4("RA Data"),
                                     choices = "No data selected! please load the RA data first"),
                         numericInput("top_n_bar_plot_individual", label = h4("Number of top bacterial taxa (Max = 21)"), value = 10),
                         actionButton("action_m1_bar_plot_individual", "Plot"),
@@ -92,7 +128,7 @@ navbarPage(
                       sidebarPanel(
                         tags$div(tags$label(h3("Species Accumulation Curve"))),
                         tags$div(tags$label(h3("1. Select Input"))),
-                        selectInput("input_count_SAC", h4("OTU Count Data"),
+                        selectInput("input_count_SAC", label = h4("OTU Count Data"),
                                        choices = "No data selected! please load the count data first"),
                         numericInput("n_replications_m1_SAC", label = h4("Number of Replication"), value = 5),
                         #numericInput(n_sample_m1_SAC", label = h4("Number of Samples in Each Replication"), value = 20),
@@ -110,15 +146,15 @@ navbarPage(
                       sidebarPanel(
                         tags$div(tags$label(h3("Rank Abundance Curve"))),
                         tags$div(tags$label(h3("1. Select Input"))),
-                        selectInput("input_count_RAC", h4("OTU Count Data"),
+                        selectInput("input_count_RAC", label = h4("OTU Count Data"),
                                     choices = "No data selected! please load the count data first"),
-                        actionButton("action_m1_RAC", "Plot"),
-                        tags$div(tags$label("May take few minutes"))
+                        actionButton("action_m1_RAC", "Plot")
+                        #tags$div(tags$label("May take few minutes"))
                       ),
                       mainPanel(
                         plotOutput("plot_RAC"),
                         downloadButton(outputId = "download_RAC", label = "Download the plot"),
-                        tags$div(tags$label("May take few minutes")),
+                        #tags$div(tags$label("May take few minutes")),
                         numericInput("RAC_output_width", label = h4("Width of output figure"), value = 480, width = "200px"),
                         numericInput("RAC_output_height", label = h4("Height of output figure"), value = 480, width = "200px")
                       ),
@@ -133,10 +169,10 @@ navbarPage(
             sidebarPanel(
               tags$div(tags$label(h3("\\( \\alpha \\) Diversity"))),
               tags$div(tags$label(h3("1. Select Input"))),
-              selectInput("input_RA_Alpha", h4("Count Data"),
+              selectInput("input_RA_Alpha", label = "",
                           choices = "No data selected! please load the count data first"),
               selectInput("select_alpha", label = h3("2. Select Method"), 
-                          choices = list("Chao1 index" = 1, "Shannon index" = 2), 
+                          choices = list("Chao1 index" = 1, "Shannon index" = 2, "Simpson index" = 3, "Inverse Simpson index" = 4), 
                           selected = 1),
               actionButton("action_m2_alpha_diversity", "Access Result")
              #numericInput("number_clusters", label = h4("5. Number of clusters"), value = 3)
@@ -170,10 +206,12 @@ navbarPage(
                       sidebarPanel(
                         tags$div(tags$label(h3("\\( \\beta \\) Diversity"))),
                         tags$div(tags$label(h3("1. Select Input"))),
-                        selectInput("input_RA_Beta", h4("RA"),
-                                    choices = "No data selected! please load the RA data with full information of taxonomy first"),
+                        selectInput("input_RA_Beta", label = "",
+                                    choices = "No data selected! please load the data with full information of taxonomy first"),
                         selectInput("select_beta", label = h3("2. Select Method"), 
-                                    choices = list("UniFrac (unweighted)" = 1, "UniFrac (weighted)" = 2, "Bray-Curtis" = 3), 
+                                    choices = list("UniFrac (unweighted) - full information of taxonomy in the first column is required" = 1,
+                                                   "UniFrac (weighted) - full information of taxonomy in the first column is required" = 2,
+                                                   "Bray-Curtis" = 3, "Horn–Morisita" = 4, "Jaccard" = 5), 
                                     selected = 1),
                         actionButton("action_m3_beta_diversity", "Access Result")
                       ),
@@ -440,7 +478,7 @@ navbarPage(
              tags$div(tags$label(h3("3. Choose KO terms reference"))),
              selectInput("select_m6_KO_Ref", label = h4("Select KO terms reference"), 
                          choices = list("GreenGenes" = 1, "Silva" = 2), 
-                         selected = 1),
+                         selected = 2),
              tags$div(tags$label(h3("4. Choose directory to save the reference"))),
              verbatimTextOutput("dir", placeholder = TRUE), 
              shinyDirButton("folder", "Folder select", "Please select a folder"),
