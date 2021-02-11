@@ -18,7 +18,7 @@ NOT RUN: For reviewing process only, ui.R and Server.R will be uploaded upon pub
 
 ## Tutorial of wiSDOM can be downloaded at
 
-(Will upload and provide the link of supplementary materials upon publication)
+https://github.com/lunching/wiSDOM/blob/master/wiSDOM%20Tutorial.pdf
 
 For trouble shooting, please leave your comments under the issues page.
 
