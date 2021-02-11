@@ -31,6 +31,6 @@ For trouble shooting, please leave your comments under the issues page.
 If you find wiSDOM useful in your research please city our paper
 
 Shih-Chi Su, James E Galvin, Shun-Fa Yang, Wen-Hung Chung, Lun-Ching Chang.
-wiSDOM: a visual and statistical analytics for interrogating microbiome
+wiSDOM: a visual and statistical analytics for interrogating microbiome.
 Bioinformatics, btab057. 2021 Jan 30.
 [https://doi.org/10.1093/bioinformatics/btab057](https://doi.org/10.1093/bioinformatics/btab057)
