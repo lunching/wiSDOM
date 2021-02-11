@@ -14,7 +14,6 @@ install.packages('shiny')
 library(shiny)
 shiny::runGitHub("wiSDOM","lunching")
 ```
-NOT RUN: For reviewing process only, ui.R and Server.R will be uploaded upon publication
 
 ## Tutorial of wiSDOM can be downloaded at
 
