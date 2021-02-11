@@ -24,7 +24,7 @@ For trouble shooting, please leave your comments under the issues page.
 
 ## Run wiSDOM using shinyapps.io with free RStudio service
 
-(shinyapps.io link will be provided upon publication)
+https://lun-ching.shinyapps.io/wisdom/
 
 ## How to Cite
 
